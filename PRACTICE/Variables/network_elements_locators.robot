@@ -22,7 +22,7 @@ ${EC_secondary_addr_xpath}      //*[@id="SecondaryIPAddress"]
 ${save_button_xpath}        //*[@id="save"]
 ${Primary_IP_xpath}       //*[text()="Primary IP"]
 ${existing_ECs_IP_xpath}    //*[contains(@class,"PrimaryIPAddress") and text()="***"]
-${existing_ECs_IP_new_xpath}   Replace String    ${existing_ECs_IP_xpath}  \***    ${Primary_ip}
+#${existing_ECs_IP_new_xpath}   Replace String    ${existing_ECs_IP_xpath}  \***    ${Primary_ip}
 ${delete_button_xpath}      //*[@id="delete-button"]
 ${yes_conformation_xapth}     //*[@id="yes"]/span
 ${EC_start_button_xpath}    //*[@id="start-button"]

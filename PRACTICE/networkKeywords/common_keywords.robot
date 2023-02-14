@@ -37,14 +37,34 @@ Create_EC_Page
         Input Text      ${EC_secondary_addr_xpath}      ${Secondar1_ip}
         Click Button    ${save_button_xpath}
 
+Replace_Existing_ip_address
+    [Documentation]    Replace_Existing_ip_address and check same IP is craeted or not
+    [Arguments]    ${new_Primary_ip}
+    ${existing_ECs_IP_new_xpath}=   Replace String    ${existing_ECs_IP_xpath}  \***    ${new_Primary_ip}
+    Wait Until Element Is Visible    ${existing_ECs_IP_new_xpath}
+    [Return]    ${existing_ECs_IP_new_xpath}
+
+Start_EC_elements
+    [Documentation]    shut down ec elements using Replace_Existing_ip_address
+    [Arguments]    ${Shutdown_ip_address}
+    ${ip}=  Replace_Existing_ip_address     ${Shutdown_ip_address}
+    Log    ${ip}
+    Click Element    ${ip}
+    Click Element    ${EC_start_button_xpath}
+    Click Element    ${yes_conformation_xapth}
+    Sleep    3
+
+
+
 Delete_EC_Page
     [Documentation]    before create new EC element check condition
-    ${existing_ECs_IP_new_xpath}=   Replace String    ${existing_ECs_IP_xpath}  \***    ${Primary_ip}
-    ${val}=     Get Webelements  ${existing_ECs_IP_new_xpath}
+    [Arguments]    ${delete_EC}
+    ${val}=     Replace_Existing_ip_address    ${delete_EC}
+    ${val1}=     Get Webelements  ${val}
     #${val}=     Get Webelement  ${existing_ECs_IP_xpath}
     #${val}=     Get Variables
-    log     ${val}
-    IF      ${val}
+    log     ${val1}
+    IF      ${val1}
         Click Element   ${delete_button_xpath}
         Click Element    ${yes_conformation_xapth}
 
