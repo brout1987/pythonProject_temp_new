@@ -54,17 +54,29 @@ Start_EC_elements
     Click Element    ${yes_conformation_xapth}
     Sleep    3
 
-
+Edit_ECs_element
+    [Documentation]    store value in a variable and Edit ECs data
+    [Arguments]    ${Edit_ECs_data}
+    ${new_ec_variable}=     Replace_Existing_ip_address    ${Edit_ECs_data}
+    Click Element    ${new_ec_variable}
+    Click Element    ${edit_button_xpath}
+    Wait Until Element Is Visible    ${paired_ec_xpath}
+    Click Element       ${paired_ec_xpath}
+    Mouse Down    ${demo_ip_xpath}
+    Click Element    ${demo_ip_xpath}
+    Click Button    ${save_button_xpath}
+    Sleep    2
 
 Delete_EC_Page
-    [Documentation]    before create new EC element check condition
+    [Documentation]    before create new EC element check condition and delete EC
     [Arguments]    ${delete_EC}
-    ${val}=     Replace_Existing_ip_address    ${delete_EC}
-    ${val1}=     Get Webelements  ${val}
+    ${new_EC_val}=     Replace_Existing_ip_address    ${delete_EC}
+    ${new_EC_val1}=     Get Webelements  ${new_EC_val}
     #${val}=     Get Webelement  ${existing_ECs_IP_xpath}
     #${val}=     Get Variables
-    log     ${val1}
-    IF      ${val1}
+    log     ${new_EC_val1}
+    IF      ${new_EC_val1}
+        Sleep    3
         Click Element   ${delete_button_xpath}
         Click Element    ${yes_conformation_xapth}
 

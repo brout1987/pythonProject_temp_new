@@ -17,16 +17,26 @@ TC1_Create_Primary_EC
     Create_EC_Page      ${Ec_user_name}     ${Ec_dns_name}      ${Primary_ip}   ${Secondary_ip}
     Replace_Existing_ip_address    ${Primary_ip}
 
-TC2_Create_Secondary_EC
+TC2_Start_Primary_EC
+    Start_EC_elements   ${Primary_ip}
+
+TC3_Create_Secondary_EC
     [Documentation]    Create Secondary EC
     Create_EC_Page    ${Ec_sec_user_name}   ${Ec_sec_dns_name}  ${Secondary_ip1}    ${Secondary_ip2}
     Replace_Existing_ip_address    ${Secondary_ip1}
 
-TC3_Start_Shutdown_EC
-    Start_EC_elements   ${Primary_ip}
+TC4_Start_Secondary_EC
+    Start_EC_elements   ${Secondary_ip1}
 
-TC4_Delete_EC
-    Delete_EC_Page      ${Primary_ip}
+TC5_Edit_primary_EC
+    Edit_ECs_element    ${Primary_ip}
+
+TC5_Edit_secondary_EC
+
+TC6_Delete_Primary_Secondary_EC
+#    Delete_EC_Page      ${Primary_ip}
+#    Delete_EC_Page      ${Secondary_ip1}
+#    Log To Console    Both Primary and Secondary ECs deleted
 
 
 
