@@ -27,3 +27,7 @@ ${primary_ice_user_name}    demo_ICE1
 ${secondary_ice_user_name}    demo_ICE2
 
 
+${csp1_host_value}      CSP1
+${csp2_host_value}      CSP2
+
+

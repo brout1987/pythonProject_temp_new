@@ -21,8 +21,7 @@ ${EC_primary_addr_xpath}        //*[@id="PrimaryIPAddress"]
 ${EC_secondary_addr_xpath}      //*[@id="SecondaryIPAddress"]
 ${save_button_xpath}        //*[@id="save"]
 ${Primary_IP_xpath}       //*[text()="Primary IP"]
-${existing_ECs_IP_xpath}    //*[contains(@class,"PrimaryIPAddress") and text()="***"]
-#${existing_ECs_IP_new_xpath}   Replace String    ${existing_ECs_IP_xpath}  \***    ${Primary_ip}
+${ECs_IP_xpath}    //*[contains(@class,"PrimaryIPAddress") and text()="***"]
 ${delete_button_xpath}      //*[@id="delete-button"]
 ${yes_conformation_xapth}     //*[@id="yes"]/span
 ${EC_start_button_xpath}    //*[@id="start-button"]
@@ -45,7 +44,6 @@ ${ec_dropdown_xpath}       //*[text()="Event Collector"]//ancestor::div[@class="
 ${primary_ec_xpath}     //*[contains(text(), " EC1 ")]
 ${cdr_manager_xpath}    //*[text()="CDR Manager"]//ancestor::div[@class="mat-form-field-infix"]
 
-#Primary CSP host name
-${primary_csp_host_name_xpath}     //span[contains(text(), "CSP1")]
-#Secondary CSP host name
-${secondary_csp_host_name_xpath}     //span[contains(text(), "CSP2")]
+#CSP host name
+${csp_host_name_xpath}     //span[contains(text(), "***")]
+

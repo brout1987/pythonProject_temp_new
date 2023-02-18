@@ -38,17 +38,17 @@ Create_EC_Page
         Input Text      ${EC_secondary_addr_xpath}      ${Secondar1_ip}
         Click Button    ${save_button_xpath}
 
-Replace_Existing_ip_address
-    [Documentation]    Replace_Existing_ip_address and check same IP is craeted or not
-    [Arguments]    ${new_Primary_ip}
-    ${existing_ECs_IP_new_xpath}=   Replace String    ${existing_ECs_IP_xpath}  \***    ${new_Primary_ip}
-    Wait Until Element Is Visible    ${existing_ECs_IP_new_xpath}
-    [Return]    ${existing_ECs_IP_new_xpath}
+Replace_Existing_xpath
+    [Documentation]
+    [Arguments]    ${xpath}     ${value}
+    ${new_xpath}=   Replace String    ${xpath}  \***    ${value}
+    Wait Until Element Is Visible    ${new_xpath}
+    [Return]    ${new_xpath}
 
 Start_EC_elements
-    [Documentation]    shut down ec elements using Replace_Existing_ip_address
-    [Arguments]    ${Shutdown_ip_address}
-    ${ip}=  Replace_Existing_ip_address     ${Shutdown_ip_address}
+    [Documentation]    Start ec element
+    [Arguments]    ${start_ec}
+    ${ip}=  Replace_Existing_xpath    ${ECs_IP_xpath}     ${start_ec}
     Log    ${ip}
     Click Element    ${ip}
     Click Element    ${EC_start_button_xpath}
@@ -58,7 +58,7 @@ Start_EC_elements
 Edit_ECs_element
     [Documentation]    store value in a variable and Edit ECs data
     [Arguments]    ${Edit_ECs_data}
-    ${new_ec_variable}=     Replace_Existing_ip_address    ${Edit_ECs_data}
+    ${new_ec_variable}=     Replace_Existing_xpath  ${ECs_IP_xpath}     ${Edit_ECs_data}
     Click Element    ${new_ec_variable}
     Click Element    ${edit_button_xpath}
     Wait Until Element Is Visible    ${paired_ec_xpath}
@@ -71,7 +71,7 @@ Edit_ECs_element
 Delete_EC_Page
     [Documentation]    before create new EC element check condition and delete EC
     [Arguments]    ${delete_EC}
-    ${new_EC_val}=     Replace_Existing_ip_address    ${delete_EC}
+    ${new_EC_val}=     Replace_Existing_xpath   ${ECs_IP_xpath}  ${delete_EC}
     ${new_EC_val1}=     Get Webelements  ${new_EC_val}
     #${val}=     Get Webelement  ${existing_ECs_IP_xpath}
     #${val}=     Get Variables
@@ -84,29 +84,30 @@ Delete_EC_Page
     END
 
 Create_ICE_element
-    [Documentation]    Create both primary and secondary ICE
-    [Arguments]    ${ice_user_name}     ${csp_host_name}
+    [Documentation]    Create ICE
+    [Arguments]    ${ice_user_name}     ${csp_host_name}    ${ice_type}
     Click Element    ${ice_create_button_xpath}
     Wait Until Element Is Visible    ${ice_details_page_xpath}
     Input Text  ${EC_Name_xpath}   ${ice_user_name}
     Wait Until Element Is Visible    ${ice_type_visible_xpath}
     Click Element    ${ice_type_visible_xpath}
-    # Select From List By Value   ${ice_type_visible_xpath}    SIP Gateway ICE
-#    Click Element   ${ice_type_xpath}
-#    Mouse Down  ${sip_gateway_ice_xpath}
-    ${csp_host_value}    Set Variable    ${csp_host_name}
+    log     Click on SIP gateway ICE
     Click Element    ${sip_gateway_ice_xpath}
     Click Element    ${ice_host_name_xpath}
-    Click Element    ${csp_host_name}
+    ${csp_hn_xpath}     Replace_Existing_xpath    ${csp_host_name_xpath}     ${csp_host_name}
+    Click Element    ${csp_hn_xpath}
     Click Element    ${home_see_xpath}
     Click Element    ${primary_see_xapth}
     Click Element    ${ec_dropdown_xpath}
     Click Element    ${primary_ec_xpath}
 #    Click Element    ${cdr_manager_xpath}
 #    Click Button
-    IF  ${csp_host_value}==CSP1
+    IF  ${ice_type}==primary
         Sleep    1
+        Click Button    ${save_button_xpath}
+    ELSE
+        Sleep    2
     END
 
-    Sleep    2
+
 

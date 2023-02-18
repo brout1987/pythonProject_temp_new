@@ -15,8 +15,8 @@ tc1_ice_page_visible
 
 tc2_create_primary_ice
     [Documentation]    Create primary ICE
-    Create_ICE_element    ${primary_ice_user_name}  ${primary_csp_host_name_xpath}
+    Create_ICE_element    ${primary_ice_user_name}  ${csp1_host_value}      primary
 
 tc3_create_secodary_ice
     [Documentation]    Create secondary ICE
-    Create_ICE_element    ${secondary_ice_user_name}    ${secondary_csp_host_name_xpath}
+    Create_ICE_element    ${secondary_ice_user_name}    ${csp2_host_value}      secondary
