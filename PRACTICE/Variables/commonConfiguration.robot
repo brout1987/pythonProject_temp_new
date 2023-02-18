@@ -21,7 +21,9 @@ ${Ec_sec_dns_name}      vmcsp4
 ${Secondary_ip1}       10.10.40.175
 ${Secondary_ip2}     10.10.50.175
 
-#Primary ICE data
-${ice_user_name}    demo_ICE1
+#Primary ICE username
+${primary_ice_user_name}    demo_ICE1
+#Secondary ICE username
+${secondary_ice_user_name}    demo_ICE2
 
 

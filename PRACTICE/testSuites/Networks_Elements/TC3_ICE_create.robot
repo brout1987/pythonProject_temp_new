@@ -15,19 +15,8 @@ tc1_ice_page_visible
 
 tc2_create_primary_ice
     [Documentation]    Create primary ICE
-    Click Element    ${ice_create_button_xpath}
-    Wait Until Element Is Visible    ${ice_details_page_xpath}
-    Input Text  ${EC_Name_xpath}   ${ice_user_name}
-    Wait Until Element Is Visible    ${ice_type_visible_xpath}
-    Click Element    ${ice_type_visible_xpath}
-    # Select From List By Value   ${ice_type_visible_xpath}    SIP Gateway ICE
-#    Click Element   ${ice_type_xpath}
-#    Mouse Down  ${sip_gateway_ice_xpath}
-    Click Element    ${sip_gateway_ice_xpath}
-    Click Element    ${ice_host_name_xpath}
-    Click Element    ${CSPs_host_name_xpath}
-    Click Element    ${home_see_xpath}
-    Click Element    ${primary_see_xapth}
-    Click Element    ${event_collector_dropdown_xpath}
-    Click Element    ${primary_ec_xpath}
+    Create_ICE_element    ${primary_ice_user_name}  ${primary_csp_host_name_xpath}
 
+tc3_create_secodary_ice
+    [Documentation]    Create secondary ICE
+    Create_ICE_element    ${secondary_ice_user_name}    ${secondary_csp_host_name_xpath}

@@ -14,6 +14,7 @@ Login_to_ems
     [Documentation]    Open url and Login to ems and Maximize browser
     #${wait_time}=   Get Selenium Implicit Wait
     Open Browser    ${Ems_log_URL}    ${Browser}
+    Set Screenshot Directory    ../../Logs
     Maximize Browser Window
     Set Selenium Implicit Wait    5 second
     Input Text    ${username_xpath}     ${Ems_username}
@@ -82,5 +83,30 @@ Delete_EC_Page
 
     END
 
+Create_ICE_element
+    [Documentation]    Create both primary and secondary ICE
+    [Arguments]    ${ice_user_name}     ${csp_host_name}
+    Click Element    ${ice_create_button_xpath}
+    Wait Until Element Is Visible    ${ice_details_page_xpath}
+    Input Text  ${EC_Name_xpath}   ${ice_user_name}
+    Wait Until Element Is Visible    ${ice_type_visible_xpath}
+    Click Element    ${ice_type_visible_xpath}
+    # Select From List By Value   ${ice_type_visible_xpath}    SIP Gateway ICE
+#    Click Element   ${ice_type_xpath}
+#    Mouse Down  ${sip_gateway_ice_xpath}
+    ${csp_host_value}    Set Variable    ${csp_host_name}
+    Click Element    ${sip_gateway_ice_xpath}
+    Click Element    ${ice_host_name_xpath}
+    Click Element    ${csp_host_name}
+    Click Element    ${home_see_xpath}
+    Click Element    ${primary_see_xapth}
+    Click Element    ${ec_dropdown_xpath}
+    Click Element    ${primary_ec_xpath}
+#    Click Element    ${cdr_manager_xpath}
+#    Click Button
+    IF  ${csp_host_value}==CSP1
+        Sleep    1
+    END
 
+    Sleep    2
 
