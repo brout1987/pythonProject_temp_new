@@ -92,9 +92,10 @@ Create_ICE_element
     Wait Until Element Is Visible    ${ice_type_visible_xpath}
     Click Element    ${ice_type_visible_xpath}
     log     Click on SIP gateway ICE
-    Click Element    ${sip_gateway_ice_xpath}
+    Wait Until Keyword Succeeds    5s   10s     Click Element   ${sip_gateway_ice_xpath}
     Click Element    ${ice_host_name_xpath}
     ${csp_hn_xpath}     Replace_Existing_xpath    ${csp_host_name_xpath}     ${csp_host_name}
+    Log    ${csp_hn_xpath}
     Click Element    ${csp_hn_xpath}
     Click Element    ${home_see_xpath}
     Click Element    ${primary_see_xapth}
@@ -102,12 +103,69 @@ Create_ICE_element
     Click Element    ${primary_ec_xpath}
 #    Click Element    ${cdr_manager_xpath}
 #    Click Button
-    IF  ${ice_type}==primary
+    IF  '${ice_type}' == 'primary'
         Sleep    1
         Click Button    ${save_button_xpath}
     ELSE
-        Sleep    2
+        Sleep    1
+        Click Button    ${save_button_xpath}
     END
 
 
+Wait_untl_ice_enabled
+    [Documentation]    check ICE enabled status
+    [Arguments]    ${host_name}     ${status}
+    Refresh_button    ${csp1_host_value}
+    ${ice_xpath}   Replace_Existing_xpath    ${ice_op_enable_state_xpath}   ${host_name}
+
+Run_keyword_n_times_until_succeed
+    [Documentation]     add new doc
+    [Arguments]     ${keyword}    @{args}   ${wait}=2s   ${retries}=5
+    FOR  ${index}  IN RANGE  ${retries}
+        ${result}   ${error}    Run Keyword And Ignore Error    ${keyword}   @{args}
+        Pass Execution If    '${result}' == 'PASS'      Keyword Execution is successful
+        sleep   ${wait}
+    END
+    Fail    ${error}
+
+Refresh_button
+    [Documentation]    click refresh button
+    [Arguments]    ${host_name}
+    Click Element    ${refresh_button_xpath}
+    ${csp_host_xpath}   Replace_Existing_xpath    ${ice_csp_host_name_xpath}    ${host_name}
+
+
+wait_until_ice_disabled
+    [Documentation]    refresh ice and wait until ICE status disable
+    [Arguments]    ${csp_value}
+#    Shutdown_ice_element    ${csp_value}
+    Refresh_button    ${csp_value}
+    ${ice_stats_disable}    Replace_Existing_xpath  ${ice_op_disable_state_xpath}   ${csp_value}
+
+shutdown_ice_element
+    [Documentation]    ice shutdown
+    [Arguments]    ${ice_shutdown}
+    ${shut_down_val}    Replace_Existing_xpath    ${ice_csp_host_name_xpath}    ${ice_shutdown}
+    Click Element    ${shut_down_val}
+    Click Element    ${shutdown_button_xpath}
+    Click Element   ${yes_conformation_xapth}
+
+run_keyword_nd_op_state_disable
+    [Documentation]    run till ice element disabled
+    [Arguments]    ${new_keyword}   @{new_args}     ${tries}=3     ${wait_time}=2s
+    FOR    ${index}     IN RANGE    ${tries}
+        ${new_result}   ${new_error}    Run Keyword And Ignore Error    ${new_keyword}  @{new_args}
+        Pass Execution If    '${new_result}' == 'PASS'  successful
+        Sleep    ${wait_time}
+    END
+    Fail    ${new_result}
+
+Delete_ice_element
+    [Documentation]    deleted ice
+    [Arguments]    ${delted_csp}
+    ${deleted_val}  Replace_Existing_xpath    ${ice_op_disable_state_xpath}     ${delted_csp}
+    Click Element    ${deleted_val}
+    Click Element    ${delete_button_xpath}
+    Click Element    ${yes_conformation_xapth}
+    Sleep    2
 

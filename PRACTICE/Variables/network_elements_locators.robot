@@ -46,4 +46,11 @@ ${cdr_manager_xpath}    //*[text()="CDR Manager"]//ancestor::div[@class="mat-for
 
 #CSP host name
 ${csp_host_name_xpath}     //span[contains(text(), "***")]
+${ice_csp_host_name_xpath}     //td[contains(text(), "***")]
+${ice_op_enable_state_xpath}   //*[text()="***"]//following-sibling::td[text()="ENABLED"]
+${ice_op_disable_state_xpath}   //*[text()="***"]//following-sibling::td[text()="DISABLED"]
+${refresh_button_xpath}   //*[@id="refresh-button"]
+${shutdown_button_xpath}    //*[@id="shutdown-button"]
+${delete_button_xpath}      //*[@id="delete-button"]
+
 
