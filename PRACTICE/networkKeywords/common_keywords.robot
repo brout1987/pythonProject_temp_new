@@ -85,7 +85,7 @@ Delete_EC_Page
 
 Create_ICE_element
     [Documentation]    Create ICE
-    [Arguments]    ${ice_user_name}     ${csp_host_name}    ${ice_type}
+    [Arguments]    ${ice_user_name}     ${csp_host_name}    ${ice_type}     ${ice_primary_name_val}=None
     Click Element    ${ice_create_button_xpath}
     Wait Until Element Is Visible    ${ice_details_page_xpath}
     Input Text  ${EC_Name_xpath}   ${ice_user_name}
@@ -101,13 +101,21 @@ Create_ICE_element
     Click Element    ${primary_see_xapth}
     Click Element    ${ec_dropdown_xpath}
     Click Element    ${primary_ec_xpath}
+    Page Should Contain Radio Button    IsPrimary
 #    Click Element    ${cdr_manager_xpath}
 #    Click Button
     IF  '${ice_type}' == 'primary'
-        Sleep    1
+
+        #Select Radio Button    IsPrimary  off
+        Radio Button Should Be Set To   IsPrimary  on
         Click Button    ${save_button_xpath}
+        Sleep    1
     ELSE
         Sleep    1
+        Click Element    ${secondary_ice_radio_btn_xpath}
+        Wait Until Element Is Visible    ${primary_ice_selection_xpath}
+        Click Element    ${primary_ice_selection_xpath}
+        Click Element    Replace_Existing_xpath    ${csp_host_name_xpath}   ${ice_primary_name_val}
         Click Button    ${save_button_xpath}
     END
 

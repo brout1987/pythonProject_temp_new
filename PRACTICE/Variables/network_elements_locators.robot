@@ -52,5 +52,13 @@ ${ice_op_disable_state_xpath}   //*[text()="***"]//following-sibling::td[text()=
 ${refresh_button_xpath}   //*[@id="refresh-button"]
 ${shutdown_button_xpath}    //*[@id="shutdown-button"]
 ${delete_button_xpath}      //*[@id="delete-button"]
+#Radion button xpath
+${radio_button_yes_xpath}   //*[@role="radiogroup"]//following-sibling::mat-radio-button[@id="mat-radio-2"]
+${radio_button_value_xpath}       //*[text()=" Yes "]
+${radio_button_groupname_xpath}     //*[@role="radiogroup"]
+${primary_ice_radio_btn_xpath}      //*[contains(@class, "mat-radio-button")]
+#${secondary_ice_radio_btn_xpath}        //mat-radio-button//following-sibling::div[text()=" No "]
+${secondary_ice_radio_btn_xpath}        //*[text()=" No "]//ancestor::mat-radio-button
+${primary_ice_selection_xpath}      //*[text()="Primary ICE Selection"]//ancestor::div[@class="mat-form-field-infix"]
 
 
