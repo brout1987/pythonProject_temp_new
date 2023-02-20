@@ -115,7 +115,8 @@ Create_ICE_element
         Click Element    ${secondary_ice_radio_btn_xpath}
         Wait Until Element Is Visible    ${primary_ice_selection_xpath}
         Click Element    ${primary_ice_selection_xpath}
-        Click Element    Replace_Existing_xpath    ${csp_host_name_xpath}   ${ice_primary_name_val}
+        ${new_ice_val}    Replace_Existing_xpath    ${csp_host_name_xpath}   ${ice_primary_name_val}
+        Click Element    ${new_ice_val}
         Click Button    ${save_button_xpath}
     END
 
