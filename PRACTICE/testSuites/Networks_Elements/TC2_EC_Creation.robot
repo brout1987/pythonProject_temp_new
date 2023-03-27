@@ -4,11 +4,13 @@ Library    BuiltIn
 Resource    ../../networkKeywords/common_keywords.robot
 Resource    ../../Variables/network_elements_locators.robot
 Resource    ../../Variables/commonConfiguration.robot
+Suite Setup     Login_to_ems
+Suite Teardown    Close_Browser
+
 
 *** Test Cases ***
 Login_to_EMS_EC_Creation
     [Documentation]    Login to EMS and click EC page
-    Login_to_ems
     Click Element   ${EC_xpath}
     Wait Until Element Is Visible       ${EC_page_summary}
 

@@ -28,6 +28,8 @@ Login_to_ems
     Sleep    3
     #Wait Until Element Contains     ${newEms_window_title}
     #Wait       Switch Browser           ${newEms_window_title}
+Close_Browser
+        Close All Browsers
 
 Create_EC_Page
         [Arguments]    ${Ec1_user_name}     ${Ec1_dns_name}     ${Primary1_ip}      ${Secondar1_ip}
@@ -177,4 +179,5 @@ Delete_ice_element
     Click Element    ${delete_button_xpath}
     Click Element    ${yes_conformation_xapth}
     Sleep    2
+    
 
